@@ -1,0 +1,68 @@
+{
+    "name": "arthur-devcontainer",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": "."
+    },
+    "initializeCommand": "xhost +local:docker",
+    "containerEnv": {
+        "DISPLAY": "${localEnv:DISPLAY}",
+        "QT_X11_NO_MITSHM": "1"
+    },
+    "remoteUser": "arthur",
+    "privileged": true,
+    "mounts": [
+        // Enable sceen acess
+        {
+            "source": "/tmp/.X11-unix",
+            "target": "/tmp/.X11-unix",
+            "type": "bind"
+        },
+        {
+            "source": "${localEnv:XAUTHORITY}",
+            "target": "${localEnv:XAUTHORITY}",
+            "type": "bind"
+        },
+        // Presist bash history
+        {
+            "source": "${localWorkspaceFolderBasename}-bashhistory",
+            "target": "/commandhistory",
+            "type": "volume"
+        }
+
+    ],
+    "workspaceFolder": "/home/arthur/workspace",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/arthur/workspace,type=bind,consistency=cached",
+    "runArgs": [
+        "--network=host",
+        "--ipc=host"
+    ],
+    "hostRequirements": {
+        "gpu": "optional"
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.profiles.linux": {
+                    "bash": {
+                        "path": "bash"
+                    }
+                },
+                "terminal.integrated.defaultProfile.linux": "bash"
+            },
+            "extensions": [
+                "ms-vscode.cpptools-extension-pack",
+                "ms-python.python",
+                "ms-python.black-formatter",
+                "ms-python.isort",
+                "ms-toolsai.jupyter",
+                "redhat.vscode-yaml",
+                "redhat.vscode-xml",
+                "twxs.cmake",
+                "xaver.clang-format",
+                "njpwerner.autodocstring",
+                "cschlosser.doxdocgen"
+            ]
+        }
+    }
+}

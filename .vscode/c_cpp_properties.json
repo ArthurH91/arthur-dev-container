@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/include/**"
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}",
+                    "/usr/include"
+                ]
+            },
+            "cppStandard": "c++17",
+            "cStandard": "c11",
+            "intelliSenseMode": "gcc-x64",
+            "configurationProvider": "ms-vscode.cmake-tools"
+        }
+    ],
+    "version": 4
+}
