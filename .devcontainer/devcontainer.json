@@ -34,8 +34,9 @@
     "workspaceFolder": "/home/arthur/workspace",
     "workspaceMount": "source=${localWorkspaceFolder},target=/home/arthur/workspace,type=bind,consistency=cached",
     "runArgs": [
-        "--network=host",
-        "--ipc=host"
+        "-p=6000:6000",
+        "-p=7000:7000",
+        "-p=7001:7001"
     ],
     "hostRequirements": {
         "gpu": "optional"

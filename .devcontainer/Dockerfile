@@ -26,6 +26,7 @@ RUN --mount=type=cache,sharing=locked,target=/var/cache/apt \
     net-tools \
     sudo \
     wget \
+    curl \
     vim \
     # python dependencies
     python-is-python3 \
@@ -55,10 +56,20 @@ RUN --mount=type=cache,sharing=locked,target=/var/cache/apt \
     python3-dev \
     python3-numpy \
     python3-scipy
-
+    
 WORKDIR /src
 ADD install_deps.sh .
 RUN ./install_deps.sh /usr/local
+
+# Install python libraries
+RUN pip install meshcat matplotlib
+# Install OMPL and its dependencies
+RUN --mount=type=cache,sharing=locked,target=/var/cache/apt \
+    --mount=type=cache,sharing=locked,target=/var/lib/apt \
+    apt-get update \
+    && curl https://ompl.kavrakilab.org/install-ompl-ubuntu.sh -o /tmp/install_ompl_ubuntu.sh \
+    && chmod u+x /tmp/install_ompl_ubuntu.sh \
+    && /tmp/install_ompl_ubuntu.sh --python
 
 # Create the user
 RUN groupadd --gid 1000 arthur \
@@ -71,6 +82,8 @@ RUN mkdir /commandhistory \
     && touch /commandhistory/.bash_history \
     && chown -R arthur /commandhistory \
     && echo "export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.bash_history" >> "/home/arthur/.bashrc"
+
+
 
 USER arthur
 WORKDIR /home/arthur/workspace
