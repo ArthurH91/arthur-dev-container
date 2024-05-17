@@ -18,11 +18,11 @@
             "target": "/tmp/.X11-unix",
             "type": "bind"
         },
-        {
-            "source": "${localEnv:XAUTHORITY}",
-            "target": "${localEnv:XAUTHORITY}",
-            "type": "bind"
-        },
+        // {
+        //     "source": "${localEnv:XAUTHORITY}",
+        //     "target": "${localEnv:XAUTHORITY}",
+        //     "type": "bind"
+        // },
         // Presist bash history
         {
             "source": "${localWorkspaceFolderBasename}-bashhistory",
